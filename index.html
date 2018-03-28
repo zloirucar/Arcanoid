@@ -4,34 +4,81 @@
     <head>
         <head> 
             <title> wow </title>
-            <meta charset="utf-8">
+            <style>
+                #header{
+                    background-color: white;
+                    position: fixed;
+                    left: 0;
+                    right:0;
+                    top: 0;
+                    height: 10ex;
+                }
+                #game{
+                    background-color:blue;
+                    position: fixed;
+                    left: 0;
+                    right: 0;
+                    top:10ex;
+                    bottom: 0;
+                }
+                #paddle{
+                    background-color:red;
+                    position: fixed;
+                    bottom: 5px;
+                    width: 5%;
+                    height: 3ex;
+                    
+                }
+                
+            </style>
+            <script src = "jquery-3.3.1.min.js"></script>
+            <script>
+               $(document).ready(function(){
+                var paddle = $('#paddle')
+                var paddleSpeed = 0
+                var paddleSpeedInc = 100
+                var paddlePos = 0
+                var timerDelta = 0.04
+                var keysPressed = {}
+                setInterval(function(){
+                    paddlePos += paddleSpeed*timerDelta
+                    var pos = paddle.offset()
+                    pos.left = paddlePos
+                    paddle.offset(pos)
+                    console.log(paddlePos)
+                }, timerDelta*1000)
+                $(window).keydown(function(e){
+                    if(!keysPressed[e.key]){
+                    switch(e.key){
+                        case 'ArrowLeft': paddleSpeed -= paddleSpeedInc; break
+                        case 'ArrowRight':paddleSpeed += paddleSpeedInc; break
+                    }
+                    keysPressed[e.key] = true;
+                    }
+                    
+                })
+                $(window).keyup(function(e){
+                    keysPressed[e.key] = false;
+                    switch(e.key){
+                        case 'ArrowLeft': paddleSpeed -= paddleSpeedInc; break
+                        case 'ArrowRight':paddleSpeed += paddleSpeedInc; break
+                    }
+                
+
+            }) 
+        })
+            </script>
         </head>
         <body>
-            
-            <h1> Hello </h1>
-            <p> paragraph</p>
-            <h2> Hello 2 </h2>
-            <p> 
-                <pre>
-                        paragraph2paragraph2paragraph2paragraph2
-                        paragraph2paragraph2paragraph2paragraph2
-                        paragraph2paragraph2 paragraph2paragraph2
-                        paragraph2
-                </pre></p>  
-                <ol>
-                    <li>gir
-                        <ol>
-                            <li><a href = "http://www.fiveplus.org.ua/10-interesnyx-faktov-iz-zhizni-gogolya" target="_blank"> О Гоголе </a> </li> 
-                            <li>2</li> 
-                            <li>3</li> 
-                        </ol>
-                    </li>
-                    <li>gir1</li>
-                    <li>gir2</li>
-                </ol>         
-                <img  width="300"
-                        height="300"
-                src=http://webfacts.ru/wp-content/uploads/2014/10/gogol.jpg />
+            <div id="header">
+                <h1>Arcanoid</h1>
+            </div>
+            <div id="game">
+                <div id="paddle">
+                    
+                </div>
+            </div>
+          
         </body>
     </head>
 
